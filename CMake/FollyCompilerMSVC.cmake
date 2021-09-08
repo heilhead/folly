@@ -39,13 +39,23 @@ if (NOT MSVC_FAVORED_ARCHITECTURE STREQUAL "blend" AND NOT MSVC_FAVORED_ARCHITEC
   message(FATAL_ERROR "MSVC_FAVORED_ARCHITECTURE must be set to one of exactly, 'blend', 'AMD64', 'INTEL64', or 'ATOM'! Got '${MSVC_FAVORED_ARCHITECTURE}' instead!")
 endif()
 
-set(MSVC_LANGUAGE_VERSION "c++17" CACHE STRING "One of 'c++17', or 'c++latest'. This determines which version of C++ to compile as.")
+set(MSVC_LANGUAGE_VERSION "c++17" CACHE STRING "One of 'c++17', 'c++20', or 'c++latest'. This determines which version of C++ to compile as.")
 set_property(
   CACHE MSVC_LANGUAGE_VERSION
   PROPERTY STRINGS
     "c++17"
+    "c++20"
     "c++latest"
 )
+
+# `CMAKE_CXX_STANDARD` needs to stay in sync with the `MSVC_LANGUAGE_VERSION`, otherwise it overrides the `/std` flag.
+if(${MSVC_LANGUAGE_VERSION} STREQUAL "c++17")
+  set(CMAKE_CXX_STANDARD 17)
+elseif(${MSVC_LANGUAGE_VERSION} STREQUAL "c++20")
+  set(CMAKE_CXX_STANDARD 20)
+else()
+  set(CMAKE_CXX_STANDARD 23)
+endif()
 
 ############################################################
 # We need to adjust a couple of the default option sets.

@@ -534,7 +534,7 @@ constexpr auto kCpplibVer = 0;
 #define FOLLY_STORAGE_CONSTEXPR constexpr
 #endif
 
-#if __cplusplus >= 201703L
+#if FOLLY_CPLUSPLUS >= 201703L
 // folly::coro requires C++17 support
 #if defined(_WIN32) && defined(__clang__) && !defined(LLVM_COROUTINES)
 // LLVM and MSVC coroutines are ABI incompatible, so for the MSVC implementation
@@ -562,7 +562,7 @@ constexpr auto kCpplibVer = 0;
 #endif
 #else
 #define FOLLY_HAS_COROUTINES 0
-#endif // __cplusplus >= 201703L
+#endif // FOLLY_CPLUSPLUS >= 201703L
 
 // MSVC 2017.5 && C++17
 #if __cpp_noexcept_function_type >= 201510 || \

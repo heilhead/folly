@@ -2708,7 +2708,7 @@ constexpr detail::Indirect indirect{};
 
 constexpr detail::Unwrap unwrap{};
 
-constexpr detail::ToVirtualGen virtualize{};
+constexpr detail::ToVirtualGen virtualize;
 
 template <class Number>
 inline detail::Take take(Number count) {
